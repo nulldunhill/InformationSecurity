@@ -22,7 +22,7 @@ namespace InformationSecurity
 
         private void buttonUpdatePassword_Click(object sender, EventArgs e)
         {
-            if (service.isCorrectPassword(textBoxOldPassword.Text))
+            if (service.IsCorrectPassword(textBoxOldPassword.Text))
             {
                 var result = service.UpdatePassword(textBoxNewPassword.Text);
                 if (result == AuthStatus.UserNotFound)

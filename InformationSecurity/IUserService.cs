@@ -24,6 +24,6 @@ namespace InformationSecurity
 
         bool IsAdmin();
 
-        bool isCorrectPassword(string password);
+        bool IsCorrectPassword(string password);
     }
 }

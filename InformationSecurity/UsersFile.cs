@@ -14,13 +14,14 @@ namespace InformationSecurity
         private const string fileName = "users";
 
         private static DES _des;
-        private const string key = "encryptK";
+        private const string key = "key1";
+        private const string salt = "salt";
 
         public static void Init()
         {
             _des = DES.Create();
 
-            var bytes = Encoding.ASCII.GetBytes(key);
+            var bytes = Encoding.ASCII.GetBytes(key + salt);
 
             _des.Key = bytes;
             _des.IV = bytes;
@@ -34,9 +35,10 @@ namespace InformationSecurity
             var users = new List<User>();
             using (FileStream fs = new FileStream(fileName + ".cfb", FileMode.OpenOrCreate))
             {
-                if (fs.Length != 80)
+                if (fs.Length != 0)
                 {
-                    using (CryptoStream cs = new CryptoStream(fs, des.CreateDecryptor(_des.Key, _des.IV), CryptoStreamMode.Read))
+                    using (CryptoStream cs = new CryptoStream(fs, des.CreateDecryptor(_des.Key, _des.IV), 
+                        CryptoStreamMode.Read))
                     {
                         using (var streamReader = new StreamReader(cs))
                         {
@@ -56,7 +58,8 @@ namespace InformationSecurity
 
             using (FileStream fs = new FileStream(fileName + ".cfb", FileMode.Create))
             {
-                using (var cs = new CryptoStream(fs, des.CreateEncryptor(_des.Key, _des.IV), CryptoStreamMode.Write))
+                using (var cs = new CryptoStream(fs, des.CreateEncryptor(_des.Key, _des.IV), 
+                    CryptoStreamMode.Write))
                 {
                     using (var sw = new StreamWriter(cs))
                     {

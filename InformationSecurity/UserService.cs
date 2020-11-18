@@ -158,7 +158,7 @@ namespace InformationSecurity
             return currentUser.Name.Equals("ADMIN");
         }
 
-        public bool isCorrectPassword(string password)
+        public bool IsCorrectPassword(string password)
         {
             return compare(currentUser.Password, password);
         }
